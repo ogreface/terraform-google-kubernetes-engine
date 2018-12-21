@@ -88,10 +88,9 @@ Then perform the following commands on the root folder:
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| basic\_auth\_password | Kubernetes HTTP Basic auth password. Only used if `enable_basic_auth` is true | string | `` | no |
-| basic\_auth\_username | Kubernetes HTTP Basic auth username. Only used if `enable_basic_auth` is true | string | `` | no |
+| basic\_auth\_password | Kubernetes HTTP Basic auth password. Defaults to empty string. Only used if `enable_basic_auth` is true | string | `` | no |
+| basic\_auth\_username | Kubernetes HTTP Basic auth username. Defaults to empty string. Only used if `enable_basic_auth` is true | string | `` | no |
 | description | The description of the cluster | string | `` | no |
-<<<<<<< HEAD
 <<<<<<< HEAD
 | horizontal_pod_autoscaling | Enable horizontal pod autoscaling addon | string | `false` | no |
 | http_load_balancing | Enable httpload balancer addon | string | `true` | no |
@@ -107,16 +106,13 @@ Then perform the following commands on the root folder:
 | monitoring_service | The monitoring service that the cluster should write metrics to. Automatically send metrics from pods in the cluster to the Google Cloud Monitoring API. VM metrics will be collected by Google Compute Engine regardless of this setting Available options include monitoring.googleapis.com, monitoring.googleapis.com/kubernetes (beta) and none | string | `monitoring.googleapis.com` | no |
 =======
 | enable\_basic\_auth | Basic authentication allows a user to authenticate to the cluster with a username and password. To maximize the security of your cluster, disable this option. Basic authentication is not recommended because it provides no confidentiality protection for transmitted credentials. Default: true | string | `true` | no |
-=======
-| enable\_basic\_auth | Basic authentication allows a user to authenticate to the cluster with a username and password. To maximize the security of your cluster, disable this option. Basic authentication is not recommended because it provides no confidentiality protection for transmitted credentials | string | `true` | no |
->>>>>>> Removing redundant default copy in docs
 | horizontal\_pod\_autoscaling | Enable horizontal pod autoscaling addon | string | `false` | no |
 | http\_load\_balancing | Enable httpload balancer addon | string | `true` | no |
 | ip\_masq\_link\_local | Whether to masquerade traffic to the link-local prefix (169.254.0.0/16). | string | `false` | no |
 | ip\_masq\_resync\_interval | The interval at which the agent attempts to sync its ConfigMap file from the disk. | string | `60s` | no |
 | ip\_range\_pods | The secondary ip range to use for pods | string | - | yes |
 | ip\_range\_services | The secondary ip range to use for pods | string | - | yes |
-| issue\_client\_certificate | Issues a client certificate to authenticate to the cluster endpoint. To maximize the security of your cluster, leave this option disabled. Client certificates don't automatically rotate and aren't easily revocable. WARNING: changing this after cluster creation is destructive! | string | `false` | no |
+| issue\_client\_certificate | Issues a client certificate to authenticate to the cluster endpoint. To maximize the security of your cluster, leave this option disabled. Client certificates don't automatically rotate and aren't easily revocable. WARNING: changing this after cluster creation is destructive! Default: false | string | `false` | no |
 | kubernetes\_dashboard | Enable kubernetes dashboard addon | string | `false` | no |
 | kubernetes\_version | The Kubernetes version of the masters. If set to 'latest' it will pull latest available version in the selected region. | string | `latest` | no |
 | logging\_service | The logging service that the cluster should write logs to. Available options include logging.googleapis.com, logging.googleapis.com/kubernetes (beta), and none | string | `logging.googleapis.com` | no |
@@ -238,9 +234,10 @@ make generate_docs
 
 Integration tests are run though [test-kitchen](https://github.com/test-kitchen/test-kitchen), [kitchen-terraform](https://github.com/newcontext-oss/kitchen-terraform), and [InSpec](https://github.com/inspec/inspec).
 
-Six test-kitchen instances are defined:
+Seven test-kitchen instances are defined:
 
 - `deploy_service`
+- `disable_client_cert`
 - `node_pool`
 - `shared_vpc`
 - `simple_regional`
